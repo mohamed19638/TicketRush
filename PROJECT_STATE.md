@@ -1,8 +1,8 @@
 # Project State
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
-- Current task: D0-03 — ADR-0001/0002 (authorized next task; not started)
-- Branch / commit: master / docs: record CI gate verification
+- Current task: D0-03 — ADR-0001/0002 (proposed drafts ready for learner review)
+- Branch / commit: master / docs(adr): propose architecture and data conventions (learner review pending)
 - Last accepted stage tag: none
 
 ## Working state
@@ -22,9 +22,9 @@
 - None.
 
 ## Open decisions
-- Decision needed: Initial architecture and data representation ADRs.
-- Recommended default: Follow the full project plan unless an explicit decision changes it.
-- Dependent stage: D0-03.
+- Decision needed: Accept or revise proposed ADR-0001/0002 decisions before D0-04.
+- Recommended defaults: Modular monolith; UUID IDs; UTC `timestamptz`; integer minor units; string-backed enum storage.
+- Dependent task: D0-04.
 - Test framework: xUnit is present as the initial test-project template choice; revisit if project ADRs require a different standard.
 
 ## Known defects / limitations
@@ -40,8 +40,8 @@
 | ID | Variant | Result | Report |
 |---|---|---|---|
 
-## Next single task (not started)
+## Current task gate (review pending)
 - ID: D0-03 — ADR-0001/0002.
-- Acceptance criteria: architecture and ID/time/money/enum rules recorded; alternatives and trade-offs reviewed.
-- No domain or application code is in scope for D0-03.
+- Proposed artifacts: `docs/adr/0001-modular-monolith-and-dependency-boundaries.md`, `docs/adr/0002-ids-time-money-and-enum-storage.md`.
+- Gate: Learner reviews alternatives and accepts or revises both decisions; no domain/application code is in scope.
 
