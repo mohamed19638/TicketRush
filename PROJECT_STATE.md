@@ -1,8 +1,8 @@
 # Project State
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
-- Current task: D0-02A — Day-one CI and public-repository hygiene (local work done; remote gate pending)
-- Branch / commit: master / D0-02A remote Gitleaks correction pending validation
+- Current task: D0-03 — ADR-0001/0002 (authorized next task; not started)
+- Branch / commit: master / docs: record CI gate verification
 - Last accepted stage tag: none
 
 ## Working state
@@ -15,10 +15,11 @@
 ## Completed tasks
 - [x] D0-01 — Repo conventions, project state/log and templates.
 - [x] D0-02 — Solution and project skeleton; project reference directions verified.
+- [x] D0-02A — Day-one CI and public-repository hygiene; GitHub checks and failure exercise verified.
 - [x] DOC-01 — Phase and task roadmap index; 102 backlog rows counted.
 
 ## Active blockers
-- First public GitHub Actions run failed only in the Gitleaks Action: it generated an invalid parent range from the root commit. A CLI-based full-history scan fix is prepared; updated run and failing-test exercise remain pending.
+- None.
 
 ## Open decisions
 - Decision needed: Initial architecture and data representation ADRs.
@@ -39,9 +40,8 @@
 | ID | Variant | Result | Report |
 |---|---|---|---|
 
-## Current task gate (incomplete)
-- ID: D0-02A
-- Local acceptance: CI workflow, `.gitignore`, safe sample config and local secret scans are implemented and verified. Restore, format, build and tests completed in GitHub Actions run #1.
-- Required remote acceptance still pending: verify corrected GitHub Actions run, intentionally fail a test and confirm CI blocks green status.
-- Do not start D0-03 until the remote gate is completed and reviewed.
+## Next single task (not started)
+- ID: D0-03 — ADR-0001/0002.
+- Acceptance criteria: architecture and ID/time/money/enum rules recorded; alternatives and trade-offs reviewed.
+- No domain or application code is in scope for D0-03.
 

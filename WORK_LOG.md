@@ -66,36 +66,35 @@ The installed SDK is 10.0.403 with .NET 10.0.14 runtime. Domain must remain inde
 Add day-one GitHub Actions checks for .NET restore/build/format/tests, exclude local and generated files, provide safe local configuration guidance, and scan for secrets.
 
 ### What I learned
-The workflow is ready for GitHub, but this checkout has no Git remote. GitHub-hosted run inspection and a CI-level intentionally failing run remain unverified until a remote is connected.
+The first GitHub run exposed that the Gitleaks Action builds an invalid scan range when the previous commit is the repository root. Scanning the checked-out full Git history with the official CLI container handles the initial push correctly.
 
 ### Changes made
 - Files: `.github/workflows/ci.yml`, `.gitignore`, `.env.example`, `PROJECT_STATE.md`, `WORK_LOG.md`.
-- Decisions: CI uses .NET 10 and scans full repository history with Gitleaks. `.env.example` contains only local placeholders and is explicitly not ignored. No app secrets or personal data were added.
+- Decisions: CI uses .NET 10 and scans full repository history with pinned Gitleaks CLI v8.30.1. `.env.example` contains only local placeholders and is explicitly not ignored. No app secrets or personal data were added. The repository is public at https://github.com/mohamed19638/TicketRush.
 
 ### Verification
-- Commands: `dotnet restore TicketRush.sln`; `dotnet format TicketRush.sln --verify-no-changes --no-restore`; `dotnet build TicketRush.sln --configuration Release --no-restore`; `dotnet test TicketRush.sln --configuration Release --no-build --no-restore`; Gitleaks v8.30.1 directory and Git-history scans in Docker; `git check-ignore` checks for generated/user files and `.env.example`.
-- Result: All four .NET commands exited 0. Build had 0 warnings and errors. All four current test projects passed one SDK template smoke test apiece (not business or database integration coverage). Gitleaks reported no leaks in the working tree or the three existing commits. Generated/user-specific paths and `.env` are ignored; `.env.example` remains trackable.
-- Not run: GitHub Actions push/inspection and intentional failing CI check, because there is no configured Git remote and `gh` is not installed.
+- Commands: `dotnet restore TicketRush.sln`; `dotnet format TicketRush.sln --verify-no-changes --no-restore`; `dotnet build TicketRush.sln --configuration Release --no-restore`; `dotnet test TicketRush.sln --configuration Release --no-build --no-restore`; Gitleaks v8.30.1 directory and Git-history scans in Docker; `git check-ignore`; GitHub Actions checks on `master` and on the temporary break-it branch.
+- Result: All normal .NET commands exited 0. Build had 0 warnings and errors; all four current test projects passed one SDK template smoke test each. Gitleaks found no leaks locally or in the successful remote history scan. GitHub Actions run #2 on `9eb03aa` succeeded end-to-end (restore, format, build, tests, full-history secret scan). The `.gitignore` checks passed: generated/user-specific paths and `.env` are ignored; `.env.example` remains trackable.
+- Break-it result: On temporary `codex/ci-fail-check`, format and build passed, local tests exited 1 as expected, and GitHub Actions run #3 failed at the `Test` step with exit code 1. The temporary branch was deleted locally and remotely; `master` remains clean.
 
 ### Break-it exercise
-- Guard changed: Not run remotely; no disposable GitHub branch can be pushed from this checkout.
+- Guard changed: Replaced a template test body temporarily with `Assert.Equal(1, 2)` on `codex/ci-fail-check`.
 - Expected failure: An intentionally failing test should make the GitHub Actions check fail and prevent a green status.
-- Observed result: Pending remote access. The local CI commands passed normally; this does not prove the GitHub branch protection/check behavior.
+- Observed result: Confirmed both locally and in GitHub Actions run #3; the workflow status was Failure at `dotnet test`. This verifies the CI check goes red; branch protection requiring that check has not been configured.
 
 ### Questions/limitations
-- D0-02A remains incomplete until the remote acceptance checks above are performed. No work on D0-03 has started.
-- No GitHub remote is configured (`git remote -v` returned no entries); `gh` was not found on PATH.
+- GitHub run #1 failed in the Gitleaks Action because its initial-push range referenced the nonexistent parent of the root commit; it did not report any secret. Replaced the wrapper with pinned Gitleaks CLI v8.30.1; run #2 passed.
 
 ### Commit
-- Local commit: `ci: add day-one build and secret scan`; remote acceptance remains pending.
+- Commits: `65a6750 ci: add day-one build and secret scan`; `9eb03aa fix(ci): scan full history on initial push`.
 
 ### Next task (not started)
-- D0-03 — ADR-0001/0002; do not start before the D0-02A remote gate passes.
+- D0-03 — ADR-0001/0002.
 
 ### Remote CI follow-up
 - First GitHub run: Restore, format verification, build and test steps completed; Gitleaks Action failed because it formed an invalid `root^..HEAD` range on the first push, where the root commit has no parent.
 - Fix: Replaced the Action wrapper with the pinned official Gitleaks CLI container scanning the checked-out full Git history. Kept output redacted and reduced workflow token permissions to repository contents read-only.
-- Verification: Pending updated GitHub Actions run.
+- Verification: GitHub Actions run #2 passed; run #3 rejected the intentional failing test. Break-it branch was removed after verification.
 
 ## 2026-10-31 — DOC-01 — Add phase and task roadmap index
 ### Goal
