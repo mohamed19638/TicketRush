@@ -1,32 +1,34 @@
 # Project State
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
-- Current task: D0-01 — Repo working agreements
-- Branch / commit: master / docs: establish project working agreements
+- Current task: D0-02 — Solution and project skeleton
+- Branch / commit: master / chore(solution): scaffold project structure
 - Last accepted stage tag: none
 
 ## Working state
-- Build: Not applicable; no application code exists.
-- Unit tests: Not applicable; no test projects exist.
-- Integration tests: Not applicable; no test projects exist.
+- Build: Passed with .NET SDK 10.0.403; zero warnings and errors.
+- Unit tests: Passed; one template smoke test in each unit-test project.
+- Integration tests: Project discovery passed; current tests are template smoke tests, not database integration tests.
 - Compose: Not created; deferred to D0-07.
-- Current demo path: None; deferred to later V0 tasks.
+- Current demo path: None; no business endpoints or UI exist yet.
 
 ## Completed tasks
 - [x] D0-01 — Repo conventions, project state/log and templates.
+- [x] D0-02 — Solution and project skeleton; project reference directions verified.
 
 ## Active blockers
 - None.
 
 ## Open decisions
-- Decision needed: None for D0-01.
+- Decision needed: Initial architecture and data representation ADRs.
 - Recommended default: Follow the full project plan unless an explicit decision changes it.
-- Dependent stage: D0-03 records initial architecture and data decisions.
+- Dependent stage: D0-03.
+- Test framework: xUnit is present as the initial test-project template choice; revisit if project ADRs require a different standard.
 
 ## Known defects / limitations
-- Behavior: No application behavior exists yet.
+- Behavior: API and Worker are empty host scaffolds; no TicketRush business behavior exists.
 - Reproduction: Not applicable.
-- Risk: This repository contains planning and workflow documents only.
+- Risk: Template tests prove test discovery only, not application correctness or PostgreSQL semantics.
 
 ## Feature flags
 | Flag | Default | Purpose | Rollback |
@@ -37,6 +39,6 @@
 |---|---|---|---|
 
 ## Next single task (not started)
-- ID: D0-02
-- Acceptance criteria: .NET 10 solution and project references follow the architecture rules; `dotnet build` passes.
+- ID: D0-02A
+- Acceptance criteria: Day-one CI for restore/build/format/test, `.gitignore`, safe sample config, secret scan and public-repository hygiene checks.
 
