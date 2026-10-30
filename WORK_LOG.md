@@ -61,6 +61,37 @@ The installed SDK is 10.0.403 with .NET 10.0.14 runtime. Domain must remain inde
 ### Next task (not started)
 - D0-02A — Day-one CI and public-repository hygiene.
 
+## 2026-10-31 — D0-02A — Day-one CI and public-repository hygiene
+### Goal
+Add day-one GitHub Actions checks for .NET restore/build/format/tests, exclude local and generated files, provide safe local configuration guidance, and scan for secrets.
+
+### What I learned
+The workflow is ready for GitHub, but this checkout has no Git remote. GitHub-hosted run inspection and a CI-level intentionally failing run remain unverified until a remote is connected.
+
+### Changes made
+- Files: `.github/workflows/ci.yml`, `.gitignore`, `.env.example`, `PROJECT_STATE.md`, `WORK_LOG.md`.
+- Decisions: CI uses .NET 10 and scans full repository history with Gitleaks. `.env.example` contains only local placeholders and is explicitly not ignored. No app secrets or personal data were added.
+
+### Verification
+- Commands: `dotnet restore TicketRush.sln`; `dotnet format TicketRush.sln --verify-no-changes --no-restore`; `dotnet build TicketRush.sln --configuration Release --no-restore`; `dotnet test TicketRush.sln --configuration Release --no-build --no-restore`; Gitleaks v8.30.1 directory and Git-history scans in Docker; `git check-ignore` checks for generated/user files and `.env.example`.
+- Result: All four .NET commands exited 0. Build had 0 warnings and errors. All four current test projects passed one SDK template smoke test apiece (not business or database integration coverage). Gitleaks reported no leaks in the working tree or the three existing commits. Generated/user-specific paths and `.env` are ignored; `.env.example` remains trackable.
+- Not run: GitHub Actions push/inspection and intentional failing CI check, because there is no configured Git remote and `gh` is not installed.
+
+### Break-it exercise
+- Guard changed: Not run remotely; no disposable GitHub branch can be pushed from this checkout.
+- Expected failure: An intentionally failing test should make the GitHub Actions check fail and prevent a green status.
+- Observed result: Pending remote access. The local CI commands passed normally; this does not prove the GitHub branch protection/check behavior.
+
+### Questions/limitations
+- D0-02A remains incomplete until the remote acceptance checks above are performed. No work on D0-03 has started.
+- No GitHub remote is configured (`git remote -v` returned no entries); `gh` was not found on PATH.
+
+### Commit
+- Local commit: `ci: add day-one build and secret scan`; remote acceptance remains pending.
+
+### Next task (not started)
+- None. Finish D0-02A's remote gate before requesting approval for D0-03.
+
 ## 2026-10-31 — DOC-01 — Add phase and task roadmap index
 ### Goal
 Create a concise Arabic guide to all phases and backlog tasks for learner orientation.

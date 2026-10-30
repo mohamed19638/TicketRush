@@ -1,0 +1,28 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esults/
+[Aa]rtifacts/
+
+# IDE and user-specific files
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+appsettings.*.local.json
+*.pfx
+*.p12
+
+# Local tooling and logs
+.dotnet/
+*.log
+coverage/
+coverage.*

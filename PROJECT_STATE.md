@@ -1,8 +1,8 @@
 # Project State
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
-- Current task: DOC-01 — User-requested roadmap index
-- Branch / commit: master / docs(roadmap): add phase and task index
+- Current task: D0-02A — Day-one CI and public-repository hygiene (local work done; remote gate pending)
+- Branch / commit: master / ci: add day-one build and secret scan (remote acceptance pending)
 - Last accepted stage tag: none
 
 ## Working state
@@ -18,7 +18,7 @@
 - [x] DOC-01 — Phase and task roadmap index; 102 backlog rows counted.
 
 ## Active blockers
-- None.
+- No Git remote is configured, and GitHub CLI (`gh`) is unavailable. Cannot push, inspect GitHub Actions, or verify the required intentionally failing CI run.
 
 ## Open decisions
 - Decision needed: Initial architecture and data representation ADRs.
@@ -39,7 +39,9 @@
 | ID | Variant | Result | Report |
 |---|---|---|---|
 
-## Next single task (not started)
+## Current task gate (incomplete)
 - ID: D0-02A
-- Acceptance criteria: Day-one CI for restore/build/format/test, `.gitignore`, safe sample config, secret scan and public-repository hygiene checks.
+- Local acceptance: CI workflow, `.gitignore`, safe sample config and local secret scan are implemented and verified.
+- Required remote acceptance still pending: push clean repository, inspect GitHub Actions result, intentionally fail a test and confirm CI blocks green status.
+- Do not start D0-03 until the remote gate is completed and reviewed.
 
