@@ -61,6 +61,36 @@ The installed SDK is 10.0.403 with .NET 10.0.14 runtime. Domain must remain inde
 ### Next task (not started)
 - D0-02A — Day-one CI and public-repository hygiene.
 
+## 2026-10-31 — D0-04 — Identity, venue and catalog Domain types
+### Goal
+Replace project templates with typed Domain concepts and constructor guards for identity, venues and event catalog data, while keeping Domain independent from infrastructure.
+
+### What I learned
+- Domain entities now carry `Guid` IDs, enforce UTC `DateTime` instants, represent money in `long` minor units and validate enum values against the accepted currency/status/type sets.
+- A refresh token is represented by its hash; token generation, password hashing, login and refresh-token rotation remain outside this task.
+
+### Changes made
+- Files: added `Common/DomainGuard.cs`; Identity types (`User`, `Role`, `UserRole`, `RefreshToken`, `EmailAddress`, and hash value types); Venue types (`Venue`, `Section`, `Seat`); Catalog types (`Event`, `Show`, `PriceTier`, and enums); added focused tests in `DomainTypeTests.cs`; removed the empty Domain and test templates; updated `PROJECT_STATE.md` and `WORK_LOG.md`.
+- Rules: IDs must be non-empty; required text is trimmed; UTC instants must have `DateTimeKind.Utc`; show doors/sales windows are checked; section capacity, seat number and tier sales limit must be positive; prices cannot be negative; each tier currency must match its show; event slug and tier/section code are normalized and validated.
+- Assumptions: supported currencies start with EGP/USD/EUR; `SectionType` is Seated or Standing and general admission inventory remains tier-based; event slug uniqueness, normalized-email uniqueness and relational constraints are deferred to D0-06; Venue timezone identifier is stored as text and deeper validation is deferred; show-layout snapshot policy remains open and must be decided before show inventory design in D0-05.
+- Boundaries: no EF mappings, migrations, authentication flow, password hashing, JWT, refresh-token rotation, show-seat inventory or layout snapshot implementation was added.
+
+### Verification
+- Commands: `dotnet format TicketRush.sln --verify-no-changes --no-restore`; `dotnet build TicketRush.sln --configuration Release --no-restore`; `dotnet test TicketRush.sln --configuration Release --no-restore`; `dotnet list src/TicketRush.Domain/TicketRush.Domain.csproj reference`; `rg -n "Infrastructure|EntityFrameworkCore|AspNetCore" src/TicketRush.Domain`; `git diff --check`.
+- Result: format verification passed; build passed with 0 warnings and 0 errors; all 15 tests passed (12 Domain tests plus 3 existing template smoke tests); Domain has no project references and no Infrastructure/EF Core/ASP.NET references were found; diff check passed.
+- Limitation: the three non-Domain test projects still contain template smoke tests; no PostgreSQL integration semantics were tested in this task.
+
+### Break-it exercise
+- Guard changed: Not applicable; each new invariant has a focused negative test, and no destructive concurrency/persistence invariant exists in this Domain-only task.
+- Expected failure: Not applicable.
+- Observed result: Not applicable.
+
+### Commit
+- Pending: `feat(domain): add identity venue and catalog types`.
+
+### Next task (not started)
+- D0-05 — Inventory/hold/order/payment/ticket Domain types; stop for learner approval. Resolve the show-layout snapshot policy before deciding how show inventory relates to venue seats.
+
 ## 2026-10-31 — D0-02A — Day-one CI and public-repository hygiene
 ### Goal
 Add day-one GitHub Actions checks for .NET restore/build/format/tests, exclude local and generated files, provide safe local configuration guidance, and scan for secrets.
