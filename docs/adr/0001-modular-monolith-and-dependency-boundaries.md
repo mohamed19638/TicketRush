@@ -1,5 +1,5 @@
 # ADR-0001: Modular Monolith and Dependency Boundaries
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-31
 - Decision owner: Learner; AI is advisory
 - Related task/experiment: D0-03
@@ -16,7 +16,7 @@ Correctness of transactional booking flows, understandable module boundaries, lo
 3. **Modular monolith with layered projects** — one solution and PostgreSQL source of truth, explicit business modules, and separate API/Worker hosts; requires discipline to preserve project and module boundaries.
 
 ## Decision
-Propose option 3.
+Adopt option 3.
 
 - Keep one business codebase and PostgreSQL database as the authoritative store.
 - Keep `TicketRush.Api` and `TicketRush.Worker` as separate executable hosts because HTTP and background jobs have different lifecycles. They share Application and Domain behavior and use Infrastructure adapters.

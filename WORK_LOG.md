@@ -96,7 +96,7 @@ The first GitHub run exposed that the Gitleaks Action builds an invalid scan ran
 - Fix: Replaced the Action wrapper with the pinned official Gitleaks CLI container scanning the checked-out full Git history. Kept output redacted and reduced workflow token permissions to repository contents read-only.
 - Verification: GitHub Actions run #2 passed; final `master` run #4 passed; run #3 rejected the intentional failing test. Break-it branch was removed after verification.
 
-## 2026-10-31 — D0-03 — Draft architecture and data-representation ADRs
+## 2026-10-31 — D0-03 — Architecture and data-representation ADRs
 ### Goal
 Record V0 architecture boundaries and the initial ID/time/money/enum persistence conventions, with alternatives and trade-offs for learner review.
 
@@ -105,12 +105,12 @@ PostgreSQL `timestamptz` stores a UTC instant, not the venue's timezone name. Np
 
 ### Changes made
 - Files: `docs/adr/0001-modular-monolith-and-dependency-boundaries.md`, `docs/adr/0002-ids-time-money-and-enum-storage.md`, `PROJECT_STATE.md`, `WORK_LOG.md`.
-- Decisions proposed: Modular monolith; UUID/Guid IDs; UTC DateTime plus `timestamptz`; integer minor units; stable string enum storage with database constraints.
-- Status: Both ADRs are Proposed because the plan assigns decision ownership to the learner. No application code, EF mappings, entities or migrations were added.
+- Decisions accepted by learner: Modular monolith; UUID/Guid IDs; UTC DateTime plus `timestamptz` and separate Venue timezone; integer minor units; stable string enum storage with database constraints.
+- No application code, EF mappings, entities or migrations were added in D0-03.
 
 ### Verification
 - Commands: `git diff --check`; manual review against plan sections A3, B1-B3, B10 and F5; verify each ADR contains status, context, options, decision, consequences, failure modes, revisit criteria and references.
-- Result: Passed. `git diff --check` was clean; both ADRs have the required sections and remain Proposed. Manual comparison confirms the decisions follow the plan's architecture, project-reference, UTC, minor-unit, currency and enum guidance; no application or migration files changed.
+- Result: Passed. `git diff --check` was clean; both ADRs contain the required sections and references. Learner selected the plan-aligned options via the decision prompts; ADR statuses updated to Accepted. No application or migration files changed.
 
 ### Break-it exercise
 - Guard changed: Not applicable to documentation-only decisions.
@@ -118,13 +118,13 @@ PostgreSQL `timestamptz` stores a UTC instant, not the venue's timezone name. Np
 - Observed result: Not applicable.
 
 ### Questions/limitations
-- D0-03 gate remains open until the learner accepts or revises the proposed ADRs. D0-04 has not started.
+- Accepted conventions are initial defaults and may be superseded only through a later reviewed ADR and a data-migration plan where stored representations change.
 
 ### Commit
-- `docs(adr): propose architecture and data conventions`; learner acceptance remains pending.
+- `docs(adr): propose architecture and data conventions`; updated to Accepted after learner selection.
 
 ### Next task (not started)
-- D0-04 — Identity/venue/catalog domain types; wait for ADR review and D0-03 approval.
+- D0-04 — Identity/venue/catalog Domain types; approved and not started.
 
 ## 2026-10-31 — DOC-01 — Add phase and task roadmap index
 ### Goal

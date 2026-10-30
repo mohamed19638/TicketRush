@@ -1,5 +1,5 @@
 # ADR-0002: IDs, Time, Money and Enum Storage
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-31
 - Decision owner: Learner; AI is advisory
 - Related task/experiment: D0-03
@@ -18,7 +18,7 @@ Correctness across machines and time zones, safe monetary arithmetic, understand
 5. **String enum values or PostgreSQL native enums** — readable and stable when managed deliberately; strings require validation, while native enum schema changes add migration/provider-specific work.
 
 ## Decision
-Propose the following initial conventions.
+Adopt the following initial conventions.
 
 ### IDs
 - Use PostgreSQL `uuid` columns and .NET `Guid` for externally addressed entity IDs. Generate IDs in the application with `Guid.NewGuid()` unless an approved later decision changes the generator.
