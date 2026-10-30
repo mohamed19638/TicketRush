@@ -61,3 +61,33 @@ The installed SDK is 10.0.403 with .NET 10.0.14 runtime. Domain must remain inde
 ### Next task (not started)
 - D0-02A — Day-one CI and public-repository hygiene.
 
+## 2026-10-31 — DOC-01 — Add phase and task roadmap index
+### Goal
+Create a concise Arabic guide to all phases and backlog tasks for learner orientation.
+
+### What I learned
+The plan contains 102 task rows across 14 phases when D0-02A is counted, while its summary line says 95. Excluding D0-02A still yields 101 rows. The source plan was left unchanged.
+
+### Changes made
+- Files: `docs/TicketRush_Roadmap.md`, `PROJECT_STATE.md`, `WORK_LOG.md`.
+- Decisions: Kept canonical task IDs and titles; added short Arabic descriptions and stage-gate summaries.
+
+### Verification
+- Command: Parse task rows from the full plan; compare phase counts and task IDs to the roadmap; `git diff --check`.
+- Result: Passed. Source backlog and roadmap each contain 102 task IDs; all IDs are unique and matched with no missing or extra rows. Phase counts match the roadmap headers. `git diff --check` passed.
+- Environment/seed: Documentation-only; no application commands.
+
+### Break-it exercise
+- Guard changed: Not applicable to this documentation task.
+- Expected failure: Not applicable.
+- Observed result: Not applicable.
+
+### Questions/limitations
+- The 95-versus-102 discrepancy remains in the source plan and should be reconciled before backlog freeze.
+
+### Commit
+- `docs(roadmap): add phase and task index`
+
+### Next task (not started)
+- D0-02A — Day-one CI and public-repository hygiene.
+

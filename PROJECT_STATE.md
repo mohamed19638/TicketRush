@@ -1,8 +1,8 @@
 # Project State
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
-- Current task: D0-02 — Solution and project skeleton
-- Branch / commit: master / chore(solution): scaffold project structure
+- Current task: DOC-01 — User-requested roadmap index
+- Branch / commit: master / docs(roadmap): add phase and task index
 - Last accepted stage tag: none
 
 ## Working state
@@ -15,6 +15,7 @@
 ## Completed tasks
 - [x] D0-01 — Repo conventions, project state/log and templates.
 - [x] D0-02 — Solution and project skeleton; project reference directions verified.
+- [x] DOC-01 — Phase and task roadmap index; 102 backlog rows counted.
 
 ## Active blockers
 - None.
