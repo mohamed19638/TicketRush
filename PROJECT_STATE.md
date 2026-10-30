@@ -2,7 +2,7 @@
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
 - Current task: D0-05 — Inventory/hold/order/payment/ticket Domain types (not started; wait for approval)
-- Branch / commit: master / D0-04 pending commit
+- Branch / commit: master / D0-04 code committed; snapshot ADR pending commit
 - Last accepted stage tag: none
 
 ## Working state
@@ -25,7 +25,7 @@
 
 ## Open decisions
 - D0-03 architecture and ID/time/money/enum decisions are accepted.
-- Venue layout snapshot policy is open. Resolve before designing show inventory: should existing shows keep a frozen layout when a venue changes, or reflect the current venue layout?
+- Venue layout policy accepted in ADR-0003: snapshot seats for each Show at creation; later Venue edits do not mutate existing Shows.
 - Test framework: xUnit is present as the initial test-project template choice; revisit if project ADRs require a different standard.
 
 ## Known defects / limitations
@@ -44,5 +44,5 @@
 ## Next single task (not started)
 - ID: D0-05 — Inventory/hold/order/payment/ticket Domain types.
 - Acceptance criteria: legal states and transition behavior captured and tested.
-- Scope: inventory, hold, order, payment and ticket Domain types and focused tests only. Resolve the open venue-layout snapshot decision before choosing how show inventory relates to venue seats.
+- Scope: inventory, hold, order, payment and ticket Domain types and focused tests only. Model show-specific inventory against the frozen layout decision in ADR-0003.
 

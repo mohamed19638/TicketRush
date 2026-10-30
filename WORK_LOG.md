@@ -72,7 +72,7 @@ Replace project templates with typed Domain concepts and constructor guards for 
 ### Changes made
 - Files: added `Common/DomainGuard.cs`; Identity types (`User`, `Role`, `UserRole`, `RefreshToken`, `EmailAddress`, and hash value types); Venue types (`Venue`, `Section`, `Seat`); Catalog types (`Event`, `Show`, `PriceTier`, and enums); added focused tests in `DomainTypeTests.cs`; removed the empty Domain and test templates; updated `PROJECT_STATE.md` and `WORK_LOG.md`.
 - Rules: IDs must be non-empty; required text is trimmed; UTC instants must have `DateTimeKind.Utc`; show doors/sales windows are checked; section capacity, seat number and tier sales limit must be positive; prices cannot be negative; each tier currency must match its show; event slug and tier/section code are normalized and validated.
-- Assumptions: supported currencies start with EGP/USD/EUR; `SectionType` is Seated or Standing and general admission inventory remains tier-based; event slug uniqueness, normalized-email uniqueness and relational constraints are deferred to D0-06; Venue timezone identifier is stored as text and deeper validation is deferred; show-layout snapshot policy remains open and must be decided before show inventory design in D0-05.
+- Assumptions: supported currencies start with EGP/USD/EUR; `SectionType` is Seated or Standing and general admission inventory remains tier-based; event slug uniqueness, normalized-email uniqueness and relational constraints are deferred to D0-06; Venue timezone identifier is stored as text and deeper validation is deferred.
 - Boundaries: no EF mappings, migrations, authentication flow, password hashing, JWT, refresh-token rotation, show-seat inventory or layout snapshot implementation was added.
 
 ### Verification
@@ -86,10 +86,14 @@ Replace project templates with typed Domain concepts and constructor guards for 
 - Observed result: Not applicable.
 
 ### Commit
-- Pending: `feat(domain): add identity venue and catalog types`.
+- `37ae743 feat(domain): add identity venue and catalog types`.
 
 ### Next task (not started)
-- D0-05 — Inventory/hold/order/payment/ticket Domain types; stop for learner approval. Resolve the show-layout snapshot policy before deciding how show inventory relates to venue seats.
+- D0-05 — Inventory/hold/order/payment/ticket Domain types; stop for learner approval. Model show-specific inventory against the accepted snapshot decision.
+
+### D0-04 decision follow-up
+- Learner selected a frozen venue-layout snapshot for each Show at creation. Recorded in `docs/adr/0003-show-layout-snapshot.md`; existing Shows are not silently changed by later Venue edits.
+- The snapshot's exact persistence shape and atomic generation flow remain for D0-05/D0-06. No inventory code was added here.
 
 ## 2026-10-31 — D0-02A — Day-one CI and public-repository hygiene
 ### Goal
