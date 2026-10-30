@@ -2,7 +2,7 @@
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
 - Current task: D0-02A — Day-one CI and public-repository hygiene (local work done; remote gate pending)
-- Branch / commit: master / ci: add day-one build and secret scan (remote acceptance pending)
+- Branch / commit: master / D0-02A remote Gitleaks correction pending validation
 - Last accepted stage tag: none
 
 ## Working state
@@ -18,7 +18,7 @@
 - [x] DOC-01 — Phase and task roadmap index; 102 backlog rows counted.
 
 ## Active blockers
-- No Git remote is configured, and GitHub CLI (`gh`) is unavailable. Cannot push, inspect GitHub Actions, or verify the required intentionally failing CI run.
+- First public GitHub Actions run failed only in the Gitleaks Action: it generated an invalid parent range from the root commit. A CLI-based full-history scan fix is prepared; updated run and failing-test exercise remain pending.
 
 ## Open decisions
 - Decision needed: Initial architecture and data representation ADRs.
@@ -41,7 +41,7 @@
 
 ## Current task gate (incomplete)
 - ID: D0-02A
-- Local acceptance: CI workflow, `.gitignore`, safe sample config and local secret scan are implemented and verified.
-- Required remote acceptance still pending: push clean repository, inspect GitHub Actions result, intentionally fail a test and confirm CI blocks green status.
+- Local acceptance: CI workflow, `.gitignore`, safe sample config and local secret scans are implemented and verified. Restore, format, build and tests completed in GitHub Actions run #1.
+- Required remote acceptance still pending: verify corrected GitHub Actions run, intentionally fail a test and confirm CI blocks green status.
 - Do not start D0-03 until the remote gate is completed and reviewed.
 

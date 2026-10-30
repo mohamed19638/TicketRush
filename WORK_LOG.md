@@ -90,7 +90,12 @@ The workflow is ready for GitHub, but this checkout has no Git remote. GitHub-ho
 - Local commit: `ci: add day-one build and secret scan`; remote acceptance remains pending.
 
 ### Next task (not started)
-- None. Finish D0-02A's remote gate before requesting approval for D0-03.
+- D0-03 — ADR-0001/0002; do not start before the D0-02A remote gate passes.
+
+### Remote CI follow-up
+- First GitHub run: Restore, format verification, build and test steps completed; Gitleaks Action failed because it formed an invalid `root^..HEAD` range on the first push, where the root commit has no parent.
+- Fix: Replaced the Action wrapper with the pinned official Gitleaks CLI container scanning the checked-out full Git history. Kept output redacted and reduced workflow token permissions to repository contents read-only.
+- Verification: Pending updated GitHub Actions run.
 
 ## 2026-10-31 — DOC-01 — Add phase and task roadmap index
 ### Goal
