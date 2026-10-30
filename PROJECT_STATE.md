@@ -2,7 +2,7 @@
 - Last updated: 2026-10-31
 - Current stage: V0 — Walking skeleton
 - Current task: D0-05 — Inventory/hold/order/payment/ticket Domain types (not started; wait for approval)
-- Branch / commit: master / D0-04 code committed; snapshot ADR pending commit
+- Branch / commit: master / 9957d02 (D0-04 code: 37ae743)
 - Last accepted stage tag: none
 
 ## Working state

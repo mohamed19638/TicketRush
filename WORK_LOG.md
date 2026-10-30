@@ -78,6 +78,7 @@ Replace project templates with typed Domain concepts and constructor guards for 
 ### Verification
 - Commands: `dotnet format TicketRush.sln --verify-no-changes --no-restore`; `dotnet build TicketRush.sln --configuration Release --no-restore`; `dotnet test TicketRush.sln --configuration Release --no-restore`; `dotnet list src/TicketRush.Domain/TicketRush.Domain.csproj reference`; `rg -n "Infrastructure|EntityFrameworkCore|AspNetCore" src/TicketRush.Domain`; `git diff --check`.
 - Result: format verification passed; build passed with 0 warnings and 0 errors; all 15 tests passed (12 Domain tests plus 3 existing template smoke tests); Domain has no project references and no Infrastructure/EF Core/ASP.NET references were found; diff check passed.
+- Remote CI: GitHub Actions run #7 for code commit `37ae743` completed successfully.
 - Limitation: the three non-Domain test projects still contain template smoke tests; no PostgreSQL integration semantics were tested in this task.
 
 ### Break-it exercise
@@ -94,6 +95,7 @@ Replace project templates with typed Domain concepts and constructor guards for 
 ### D0-04 decision follow-up
 - Learner selected a frozen venue-layout snapshot for each Show at creation. Recorded in `docs/adr/0003-show-layout-snapshot.md`; existing Shows are not silently changed by later Venue edits.
 - The snapshot's exact persistence shape and atomic generation flow remain for D0-05/D0-06. No inventory code was added here.
+- ADR-0003 was committed as `9957d02 docs(adr): freeze venue layout per show`.
 
 ## 2026-10-31 — D0-02A — Day-one CI and public-repository hygiene
 ### Goal
